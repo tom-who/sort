@@ -1,41 +1,33 @@
-class QuickSortWithCounters:
-    def __init__(self):
-        self.comparisons = 0
-        self.swaps = 0
+import random
+import time
 
-    def quicksort(self, arr):
-        self._quicksort_helper(arr, 0, len(arr) - 1)
+def bubbleSort(arr):
+    operation_count = 0
+    n = len(arr)
+    for x in range(n-1):
+        swap = False
+        for y in range(n-x-1):
+            operation_count += 1
+            if arr[y] > arr[y+1]:
+                arr[y], arr[y+1] = arr[y+1], arr[y]
+                operation_count += 1
+                swap = True
+        if swap == False:
+            break
+    return operation_count
 
-    def _quicksort_helper(self, arr, low, high):
-        if low < high:
-            partition_index = self._partition(arr, low, high)
-            self._quicksort_helper(arr, low, partition_index - 1)
-            self._quicksort_helper(arr, partition_index + 1, high)
+# User input for the number of iterations
+x = int(input("Enter the number of times to run the bubble sort: "))
+total_operations = 0
 
-    def _partition(self, arr, low, high):
-        pivot = arr[high]  # Pivot element
-        i = low - 1  # Index of smaller element
-        for j in range(low, high):
-            self.comparisons += 1  # Increment comparisons counter
-            if arr[j] < pivot:
-                i += 1
-                arr[i], arr[j] = arr[j], arr[i]
-                self.swaps += 1  # Increment swaps counter
-        # Swap the pivot element with the element at i+1
-        arr[i + 1], arr[high] = arr[high], arr[i + 1]
-        self.swaps += 1  # Increment swaps counter
-        return i + 1
+for i in range(x):
+    array = []
+    for a in range(1, 100):
+        randNum = random.randint(0, 100)
+        array.append(randNum)
 
-    def get_counters(self):
-        return {"comparisons": self.comparisons, "swaps": self.swaps}
+    operations = bubbleSort(array)
+    total_operations += operations
 
-
-# Example usage
-if __name__ == "__main__":
-    sorter = QuickSortWithCounters()
-    arr = [10, 7, 8, 9, 1, 5]
-    print("Original array:", arr)
-    sorter.quicksort(arr)
-    print("Sorted array:", arr)
-    counters = sorter.get_counters()
-    print("Counters:", counters)
+average_operations = total_operations / x
+print(f"[*] Average operations over {x} runs: {average_operations}")
