@@ -16,13 +16,14 @@ def bubbleSort(arr):
             break
     return operation_count
 
-# User input for the number of iterations
+# User input for number of iterations and array size
 x = int(input("Enter the number of times to run the bubble sort: "))
+array_size = int(input("Enter the size of the array to sort: "))
 total_operations = 0
 
 for i in range(x):
     array = []
-    for a in range(1, 100):
+    for _ in range(array_size):
         randNum = random.randint(0, 100)
         array.append(randNum)
 
@@ -30,4 +31,4 @@ for i in range(x):
     total_operations += operations
 
 average_operations = total_operations / x
-print(f"[*] Average operations over {x} runs: {average_operations}")
+print(f"[*] Average operations over {x} runs with array size {array_size}: {average_operations}")
